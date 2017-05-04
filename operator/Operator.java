@@ -24,7 +24,7 @@ public abstract class Operator{
 	}
 
 	public String toString(){
-		return getName() + " " + getClockCycle();
+		return getName() + " " + getClockCycle() + " " + getRemCountClockCycle();
 	}
 
 	public abstract void solve();
