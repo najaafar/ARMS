@@ -1,175 +1,143 @@
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
 
-public class Main {
+import java.util.*;
+import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-    public static void main(String s[]) {
+class Main implements Runnable{
 
-        initFrame();
+	public static int noOfInstruction = 0;
+	public static ArrayList<String[]> instructions;
+	public static ArrayList<Register> registers = new ArrayList<Register>();
 
-    }
+	public static void main(String[] args){
 
-    public static void initFrame(){
-        //init frame and content pane
-        createAndShowGUI();
-    }
+		final String FILE_PATH = "src/resources/input.txt";
+		/* load input data */
+		ArrayList<String> inputData = new ArrayList<String>();
+		try {
+			FileReader file = new FileReader(FILE_PATH);
+			BufferedReader text = new BufferedReader(file);
+			String line;
+			while ((line = text.readLine()) != null) {
+				inputData.add(line);
+				noOfInstruction++;
+				//System.out.println(line);
+			}
+			text.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-    public static void addComponentsToPane(Container pane) {
+		/* convert input data to instructions using REGEX */
+		final String PATTERN = "(LOAD|ADD|SUB|CMP)\\s+(R\\d+),\\s*((R\\d+)|\\d+)\\s*";
+		instructions = new ArrayList<String[]>();
+		for(int i = 0; i < inputData.size(); i++) {
+			String line[] = new String[3];
 
-        JButton button = new JButton();
-        JPanel header, output, parameters, window;
-        header = new JPanel(new BorderLayout());
-        output = new JPanel();
-        parameters = new JPanel();
-        parameters.setPreferredSize(new Dimension(200, 300));
-        window = new JPanel(new BorderLayout());
+			Pattern p = Pattern.compile(PATTERN);
+			Matcher m = p.matcher(inputData.get(i));
+			if(m.find()) {
+				line[0] = m.group(1);
+				line[1] = m.group(2);
+				line[2] = m.group(3);
 
-        JMenuBar menuBar;
-        JMenu menu, submenu;
-        JMenuItem menuItem;
-            
-            //Create the menu bar.
-            menuBar = new JMenuBar();
-            
-            //Build the first menu.
-            menu = new JMenu("File");
-            menu.setMnemonic(KeyEvent.VK_A);
-            menu.getAccessibleContext().setAccessibleDescription("File");
-            menuBar.add(menu);
-            
-            //a group of JMenuItems
-            menuItem = new JMenuItem("Open file", KeyEvent.VK_T);
-            //menuItem.setMnemonic(KeyEvent.VK_T); //used constructor instead
-            menuItem.setAccelerator(KeyStroke.getKeyStroke( KeyEvent.VK_1, ActionEvent.ALT_MASK));
-            menuItem.getAccessibleContext().setAccessibleDescription("Open files from a directory");
-            menu.add(menuItem);
-            
-            //a submenu
-            menu.addSeparator();
-            submenu = new JMenu("Submenu");
-            submenu.setMnemonic(KeyEvent.VK_S);
+				//System.out.println(line[0] + "," + line[1] + "," + line[2]);
+			}
+			instructions.add(line);
 
-            menuItem = new JMenuItem("Item1");
-            menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.ALT_MASK));
-            submenu.add(menuItem);
+		}
 
-            menuItem = new JMenuItem("Item2");
-            submenu.add(menuItem);
-            menu.add(submenu);
+		//print all element in the intructions arraylist
+		/*for(int i=0; i < noOfInstruction; i++){
+			System.out.println(Arrays.toString(instructions.get(i)));
+		}*/
 
-            //Build second menu in the menu bar.
-            menu = new JMenu("View");
-            menu.setMnemonic(KeyEvent.VK_N);
-            menu.getAccessibleContext().setAccessibleDescription("View");
-            menuBar.add(menu);
-            
-            //Build second menu in the menu bar.
-            menu = new JMenu("Project");
-            menu.setMnemonic(KeyEvent.VK_N);
-            menu.getAccessibleContext().setAccessibleDescription("Project");
-            menuBar.add(menu);
-            
-            //Build second menu in the menu bar.
-            menu = new JMenu("Tools");
-            menu.setMnemonic(KeyEvent.VK_N);
-            menu.getAccessibleContext().setAccessibleDescription("Tools");
-            menuBar.add(menu);
-            
-            //Build second menu in the menu bar.
-            menu = new JMenu("Help");
-            menu.setMnemonic(KeyEvent.VK_N);
-            menu.getAccessibleContext().setAccessibleDescription("Help");
-            menuBar.add(menu);
+		String inst[][] = new String[0][0];
+		inst = instructions.toArray(new String[0][0]);	//converts instructions to a 2D String array
+		
+		//print all element in the inst 2Darray
+		/*for(int i=0; i < noOfInstruction; i++){
+			for(int j=0; j < 3; j++){
+				System.out.println(inst[i][j]);
+			}
+			//System.out.println("\n");
+		}*/
 
-        header.add(menuBar, BorderLayout.PAGE_START);
+		//init registers
+		initRegisters();
+		showRegisters();
 
-        JToolBar toolBar2 = new JToolBar();
-        JButton run, timer;
-        run = new JButton("RUN");
-        timer = new JButton("TIMER");
-        toolBar2.add(run);
-        toolBar2.add(timer);
-        header.add(toolBar2, BorderLayout.PAGE_END);
+		for(int i=0; i < noOfInstruction; i++){
+			Thread t = new Thread(new Main());
+			t.start();
+		}
+		
+	}
 
-        pane.add(header, BorderLayout.PAGE_START);
+	public void run(){
+		//System.out.println("Program is now running.")
+		for(int i=0; i < 5; i++){
+			//System.out.println("Thread : " + i);
+			try{
+				startExecution(instructions.get(i));
+				Thread.sleep(50);
+			}catch(InterruptedException ie){
+				System.out.println("Operation interrupted! " + ie);
+			}
+		}
+               
+		System.out.println("Operation finished!");
+	}
 
+	public static void initRegisters(){
+		Register r, pc, mar, mbr, of, nf, zf;
+		for(int i = 0; i < 32; i++){
+			r = new Register("R"+i, 0, false);
+			registers.add(r);
+		}
 
-        //Lay out the parameters.
-        JTabbedPane tabbedPane = new JTabbedPane();
-        
-        JComponent panel1 = makeTextPanel("Panel #1");
-        tabbedPane.addTab("Project", panel1);
-        tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
-        
-        JComponent panel2 = makeTextPanel("Panel #2");
-        tabbedPane.addTab("Parameters", panel2);
-        tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
-        
-        parameters.add(tabbedPane);
-        //The following line enables to use scrolling tabs.
-        tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-        pane.add(parameters, BorderLayout.LINE_START);
+		//Program Counter (PC)
+		pc = new Register("PC", 0, false);
+		registers.add(pc);
 
-        //Lay out the window
-        JToolBar toolBar = new JToolBar("Still draggable");
-        JButton previous, stop, pause, play, next;
-        previous = new JButton("PREV");
-        stop = new JButton("STOP");
-        pause = new JButton("PAUSE");
-        play = new JButton("PLAY");
-        next = new JButton("NEXT");
-        toolBar.add(previous);
-        toolBar.add(stop);
-        toolBar.add(pause);
-        toolBar.add(play);
-        toolBar.add(next);
+		//Memory Address Register (MAR)
+		mar = new Register("MAR", 0, false);
+		registers.add(mar);
 
-        //this is designated fow the animation window
-        JTextArea textArea2 = new JTextArea(30, 30);
-        textArea2.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(textArea2);
+		//MBR (Memory Buffer Register)
+		mbr = new Register("MBR", 0, false);
+		registers.add(mbr);
 
-        //Lay out the main panel.
-        window.add(toolBar, BorderLayout.PAGE_START);
-        window.add(scrollPane, BorderLayout.CENTER);
+		//Overflow Flag (OF)
+		of = new Register("OF", 0, false);
+		registers.add(of);
 
-        pane.add(window, BorderLayout.LINE_END);
+		//Negative Flag (NF)
+		nf = new Register("NF", 0, false);
+		registers.add(nf);
 
-        //textarea for command line
-        JTextArea textArea = new JTextArea();
-        textArea.setColumns(50);
-        textArea.setLineWrap(true);
-        textArea.setRows(5);
-        textArea.setWrapStyleWord(true);
-        textArea.setEditable(true);
-        JScrollPane jScrollPane1 = new JScrollPane(textArea);    
-        pane.add(jScrollPane1, BorderLayout.PAGE_END);
-    }
+		//Zero Flag (ZF).
+		zf = new Register("ZF", 0, false);
+		registers.add(zf);
+	}
 
-    private static JComponent makeTextPanel(String text) {
-        JPanel panel = new JPanel(false);
-        JLabel filler = new JLabel(text);
-        filler.setHorizontalAlignment(JLabel.CENTER);
-        panel.setLayout(new GridLayout(2, 2));
-        panel.add(filler);
-        return panel;
-    }
+	public static void showRegisters(){
+		//print all element in the intructions arraylist
+		System.out.println("\n");
+		for(int i=0; i < registers.size(); i++){
+			System.out.println(registers.get(i));
+		}
+	}
+	public void startExecution(String[] line){
+		//fetch
 
-    private static void createAndShowGUI() {
-        
-        //Create and set up the window.
-        JFrame frame = new JFrame("BorderLayoutDemo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//decode
 
-        //Set up the content pane.
-        addComponentsToPane(frame.getContentPane());
+		//execute
 
-        //Use the content pane's default BorderLayout. No need for
-        //setLayout(new BorderLayout());
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
-    }
+		//memory
 
+		//writeback
+	}
 }
