@@ -1,4 +1,10 @@
 
+import process.Fetch;
+import process.Decode;
+import process.Execute;
+import process.Memory;
+import process.Writeback;
+
 import java.util.*;
 import java.io.*;
 import java.util.regex.Matcher;
@@ -7,11 +13,13 @@ import java.util.regex.Pattern;
 class Main implements Runnable{
 
 	public static int noOfInstruction = 0;
+	public static ArrayList<Thread> processes = new ArrayList<Thread>(); 
 	public static ArrayList<String[]> instructions;
 	public static ArrayList<Register> registers = new ArrayList<Register>();
 
 	public static void main(String[] args){
 
+		//read input data from a file
 		final String FILE_PATH = "src/resources/input.txt";
 		/* load input data */
 		ArrayList<String> inputData = new ArrayList<String>();
@@ -68,16 +76,29 @@ class Main implements Runnable{
 		initRegisters();
 		showRegisters();
 
-		for(int i=0; i < noOfInstruction; i++){
+		/*for(int i=0; i < noOfInstruction; i++){
 			Thread t = new Thread(new Main());
 			t.start();
-		}
-		
+		}*/
+
+		//initialize clock thread
+		Thread clock  =  new Thread(new Main());
+		clock.start();
+		System.out.println("Clock running...");
+
+		//initialize threads for fetch, decode, execute, memory, writeback
+		Fetch fetch = new Fetch();
+		Decode decode = new Decode();
+		Execute execute = new Execute();
+		Memory memory = new Memory();
+		Writeback writeback = new Writeback();
+
+		showProcessesPerClockCycle();
 	}
 
 	public void run(){
 		//System.out.println("Program is now running.")
-		for(int i=0; i < 5; i++){
+		for(int i=0; i < noOfInstruction; i++){
 			//System.out.println("Thread : " + i);
 			try{
 				startExecution(instructions.get(i));
@@ -86,7 +107,7 @@ class Main implements Runnable{
 				System.out.println("Operation interrupted! " + ie);
 			}
 		}
-               
+
 		System.out.println("Operation finished!");
 	}
 
@@ -129,6 +150,15 @@ class Main implements Runnable{
 			System.out.println(registers.get(i));
 		}
 	}
+
+	public static void showProcessesPerClockCycle(){
+		//print all element in the intructions arraylist
+		System.out.println("\n");
+		for(int i=0; i < processes.size(); i++){
+			System.out.println(processes.get(i));
+		}
+	}
+
 	public void startExecution(String[] line){
 		//fetch
 
@@ -139,5 +169,12 @@ class Main implements Runnable{
 		//memory
 
 		//writeback
+
+
+		/*processes.add(fetch.getThread());
+		processes.add(decode.getThread());
+		processes.add(execute.getThread());
+		processes.add(memory.getThread());
+		processes.add(writeback.getThread());*/
 	}
 }
