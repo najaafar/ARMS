@@ -15,7 +15,6 @@ class Main implements Runnable{
 	public static int noOfInstruction = 0;
 	public static ArrayList<Thread> processes = new ArrayList<Thread>(); 
 	public static ArrayList<String[]> instructions;
-	public static ArrayList<Register> registers = new ArrayList<Register>();
 
 	public static void main(String[] args){
 
@@ -61,6 +60,9 @@ class Main implements Runnable{
 			System.out.println(Arrays.toString(instructions.get(i)));
 		}*/
 
+		//to access elements in instructions
+		//System.out.println(instructions.get(2)[0]);
+
 		String inst[][] = new String[0][0];
 		inst = instructions.toArray(new String[0][0]);	//converts instructions to a 2D String array
 		
@@ -69,12 +71,12 @@ class Main implements Runnable{
 			for(int j=0; j < 3; j++){
 				System.out.println(inst[i][j]);
 			}
-			//System.out.println("\n");
+			System.out.println("\n");
 		}*/
 
-		//init registers
-		initRegisters();
-		showRegisters();
+		//initialize internal memory to set up registers
+		InternalMemory im = new InternalMemory(inst);
+
 
 		/*for(int i=0; i < noOfInstruction; i++){
 			Thread t = new Thread(new Main());
@@ -94,6 +96,7 @@ class Main implements Runnable{
 		Writeback writeback = new Writeback();
 
 		showProcessesPerClockCycle();
+
 	}
 
 	public void run(){
@@ -111,45 +114,6 @@ class Main implements Runnable{
 		System.out.println("Operation finished!");
 	}
 
-	public static void initRegisters(){
-		Register r, pc, mar, mbr, of, nf, zf;
-		for(int i = 0; i < 32; i++){
-			r = new Register("R"+i, 0, false);
-			registers.add(r);
-		}
-
-		//Program Counter (PC)
-		pc = new Register("PC", 0, false);
-		registers.add(pc);
-
-		//Memory Address Register (MAR)
-		mar = new Register("MAR", 0, false);
-		registers.add(mar);
-
-		//MBR (Memory Buffer Register)
-		mbr = new Register("MBR", 0, false);
-		registers.add(mbr);
-
-		//Overflow Flag (OF)
-		of = new Register("OF", 0, false);
-		registers.add(of);
-
-		//Negative Flag (NF)
-		nf = new Register("NF", 0, false);
-		registers.add(nf);
-
-		//Zero Flag (ZF).
-		zf = new Register("ZF", 0, false);
-		registers.add(zf);
-	}
-
-	public static void showRegisters(){
-		//print all element in the intructions arraylist
-		System.out.println("\n");
-		for(int i=0; i < registers.size(); i++){
-			System.out.println(registers.get(i));
-		}
-	}
 
 	public static void showProcessesPerClockCycle(){
 		//print all element in the intructions arraylist
