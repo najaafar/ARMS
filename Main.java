@@ -76,6 +76,7 @@ class Main implements Runnable{
 
 		//initialize internal memory to set up registers
 		InternalMemory im = new InternalMemory(inst);
+		
 
 
 		/*for(int i=0; i < noOfInstruction; i++){

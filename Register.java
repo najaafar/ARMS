@@ -7,10 +7,8 @@ public class Register{
 	private Operator operator;
 	private boolean isBusy = false;
 
-	public Register (String name, int value, boolean hasValue){
+	public Register (String name){
 		this.name = name;
-		this.value = value;
-		this.isBusy = hasValue;
 	} 
 
 	/*setters*/
