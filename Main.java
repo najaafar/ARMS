@@ -4,6 +4,7 @@ import process.Decode;
 import process.Execute;
 import process.Memory;
 import process.Writeback;
+import src.InternalMemory;
 
 import java.util.*;
 import java.io.*;
@@ -76,8 +77,8 @@ class Main implements Runnable{
 
 		//initialize internal memory to set up registers
 		InternalMemory im = new InternalMemory(inst);
-		
 
+		//processes starts here ===========================================================================
 
 		/*for(int i=0; i < noOfInstruction; i++){
 			Thread t = new Thread(new Main());
@@ -90,11 +91,11 @@ class Main implements Runnable{
 		System.out.println("Clock running...");
 
 		//initialize threads for fetch, decode, execute, memory, writeback
-		Fetch fetch = new Fetch();
-		Decode decode = new Decode();
-		Execute execute = new Execute();
-		Memory memory = new Memory();
-		Writeback writeback = new Writeback();
+		Fetch fetch = new Fetch(im);
+		Decode decode = new Decode(im);
+		Execute execute = new Execute(im);
+		Memory memory = new Memory(im);
+		Writeback writeback = new Writeback(im);
 
 		showProcessesPerClockCycle();
 

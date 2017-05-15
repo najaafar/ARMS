@@ -1,5 +1,6 @@
 package process;
 
+import src.InternalMemory;
 import java.util.*;
 import java.io.*;
 
@@ -8,7 +9,7 @@ public class Fetch implements Runnable{
 	public Thread tFetch;
 	private String name = "FETCH";
 
-	public Fetch(){
+	public Fetch(InternalMemory im){
 		createThreadInstance();
 		this.tFetch.start();
 	} 
@@ -23,6 +24,10 @@ public class Fetch implements Runnable{
 
 	public Thread getThread(){
 		return this.tFetch;
+	}
+
+	public void doProcess(){
+
 	}
 
 	//getter

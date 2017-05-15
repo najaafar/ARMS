@@ -1,5 +1,6 @@
 package process;
 
+import src.InternalMemory;
 import java.util.*;
 import java.io.*;
 
@@ -8,7 +9,7 @@ public class Memory implements Runnable{
 	public Thread tMemory;
 	private String name = "MEMORY";
 
-	public Memory(){
+	public Memory(InternalMemory im){
 		createThreadInstance();
 		this.tMemory.start();
 	} 

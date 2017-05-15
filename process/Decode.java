@@ -1,5 +1,6 @@
 package process;
 
+import src.InternalMemory;
 import java.util.*;
 import java.io.*;
 
@@ -8,7 +9,7 @@ public class Decode implements Runnable{
 	public Thread tDecode;
 	private String name = "DECODE";
 
-	public Decode(){
+	public Decode(InternalMemory im){
 		createThreadInstance();
 		this.tDecode.start();
 	} 
