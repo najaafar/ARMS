@@ -10,6 +10,7 @@ class Main implements Runnable{
 
 	public static int noOfInstruction = 0;
 	public static ArrayList<Thread> processes = new ArrayList<Thread>(); 
+	public static ArrayList<String> inputData;
 	public static ArrayList<String[]> instructions;
 	public static InternalMemory im;
 	public static int cycle = 0;
@@ -19,7 +20,7 @@ class Main implements Runnable{
 		//read input data from a file
 		final String FILE_PATH = "src/resources/TestCase001.txt";
 		/* load input data */
-		ArrayList<String> inputData = new ArrayList<String>();
+		inputData = new ArrayList<String>();
 		try {
 			FileReader file = new FileReader(FILE_PATH);
 			BufferedReader text = new BufferedReader(file);

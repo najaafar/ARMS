@@ -36,10 +36,10 @@ public class Fetch implements Runnable{
 		Main.im.MAR.setValue(Main.im.PC.getValue());
 
 		//ilagay ang value ng address na laman ni MAR kay MBR
-		String tempMBR;
-		tempMBR = this.instruction[Main.im.MAR.getValue()][0] + " " + this.instruction[Main.im.MAR.getValue()][1] + " " + this.instruction[Main.im.MAR.getValue()][2];
-		Main.im.MBR.setValueMBR(tempMBR);
-		//System.out.println("MBR = " + Main.im.MBR.getValueMBR());
+		//String tempMBR;
+		//tempMBR = this.instruction[Main.im.MAR.getValue()][0] + " " + this.instruction[Main.im.MAR.getValue()][1] + " " + this.instruction[Main.im.MAR.getValue()][2];
+		Main.im.MBR.setValueMBR(Main.inputData.get(Main.im.MAR.getValue()));
+		System.out.println("MBR = " + Main.im.MBR.getValueMBR());
 		
 		//i-increment si PC
 		Main.im.incrementPC();
@@ -49,7 +49,7 @@ public class Fetch implements Runnable{
 		System.out.println("Clock cycle at " + Main.cycle);
 		//Gawa ka ng Decode tas ipasa mo yung mga registers
 		
-		Decode decode = new Decode();
+		Decode decode = new Decode(Main.im.MBR.getValueMBR());
 		decode.run();
 	}
 

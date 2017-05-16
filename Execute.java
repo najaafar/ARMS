@@ -8,8 +8,10 @@ public class Execute implements Runnable{
 	public Thread tExecute;
 	private String name = "EXECUTE";
 	public String[][] instruction;
+	public static String operator;
+	public static String op1, op2;
 
-	public Execute(){
+	public Execute(String operator, String op1, String op2){
 		createThreadInstance();
 		this.tExecute.start();
 
