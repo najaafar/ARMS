@@ -1,4 +1,3 @@
-package process;
 
 import src.InternalMemory;
 import java.util.*;
@@ -9,7 +8,7 @@ public class Memory implements Runnable{
 	public Thread tMemory;
 	private String name = "MEMORY";
 
-	public Memory(InternalMemory im){
+	public Memory(){
 		createThreadInstance();
 		this.tMemory.start();
 	} 
@@ -20,6 +19,8 @@ public class Memory implements Runnable{
 
 	public void run(){
 		System.out.println("Memory finished!");
+		Main.cycle++;
+		System.out.println("Clock cycle at " + Main.cycle);
 	}
 
 	public Thread getThread(){

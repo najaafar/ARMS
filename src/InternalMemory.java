@@ -12,7 +12,7 @@ public class InternalMemory{
 	public static Register r, PC, MAR, MBR, OF, NF, ZF;
 	private int noOfInstruction;
 	public static int pc = 0;
-	public String[][] instruction;
+	private String[][] instruction;
 
 
 	public InternalMemory(String[][] instruction){
@@ -90,6 +90,10 @@ public class InternalMemory{
 
 	public String[][] getInstructions(){
 		return this.instruction;
+	} 
+
+	public int getNoOfInstructions(){
+		return this.noOfInstruction;
 	}
 
 }

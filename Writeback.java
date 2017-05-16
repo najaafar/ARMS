@@ -1,4 +1,3 @@
-package process;
 
 import src.InternalMemory;
 import java.util.*;
@@ -9,7 +8,7 @@ public class Writeback implements Runnable{
 	public Thread tWriteback;
 	private String name = "WRITEBACK";
 
-	public Writeback(InternalMemory im){
+	public Writeback(){
 		createThreadInstance();
 		this.tWriteback.start();
 	} 
@@ -20,6 +19,8 @@ public class Writeback implements Runnable{
 
 	public void run(){
 		System.out.println("Writeback finished!");
+		Main.cycle++;
+		System.out.println("Clock cycle at " + Main.cycle);
 	}
 
 	public Thread getThread(){
