@@ -20,7 +20,7 @@ class Main implements Runnable{
 	public static void main(String[] args){
 
 		//read input data from a file
-		final String FILE_PATH = "src/resources/input.txt";
+		final String FILE_PATH = "src/resources/TestCase001.txt";
 		/* load input data */
 		ArrayList<String> inputData = new ArrayList<String>();
 		try {
@@ -38,7 +38,7 @@ class Main implements Runnable{
 		}
 
 		/* convert input data to instructions using REGEX */
-		final String PATTERN = "(LOAD|ADD|SUB|CMP)\\s+(R\\d+),\\s*((R\\d+)|\\d+)\\s*";
+		final String PATTERN = "(LOAD|ADD|SUB|CMP)\\s+(R\\d+),*\\s*((R\\d+)|\\d+)\\s*";
 		instructions = new ArrayList<String[]>();
 		for(int i = 0; i < inputData.size(); i++) {
 			String line[] = new String[3];
@@ -77,6 +77,8 @@ class Main implements Runnable{
 
 		//initialize internal memory to set up registers
 		InternalMemory im = new InternalMemory(inst);
+		
+		//start mo dito yung isa muna
 
 		//processes starts here ===========================================================================
 
