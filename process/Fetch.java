@@ -9,11 +9,13 @@ public class Fetch implements Runnable{
 	public Thread tFetch;
 	private String name = "FETCH";
 	public InternalMemory im;
+	public String[][] instruction;
 
 	public Fetch(InternalMemory im){
 		createThreadInstance();
 		this.tFetch.start();
 		this.im = im;
+		this.instruction = im.getInstructions();
 	} 
 
 	public void createThreadInstance(){
@@ -24,6 +26,13 @@ public class Fetch implements Runnable{
 		//kay pc nakalagay yung index ng current instruction
 		//ilagay ang laman ni pc kay MAR
 		im.MAR.setValue(im.PC.getValue());
+
+		//ilagay ang value ng address na laman ni MAR kay MBR
+		String tempMBR;
+		tempMBR = this.instruction[im.MAR.getValue()][0] + " " + this.instruction[im.MAR.getValue()][1] + " " + this.instruction[im.MAR.getValue()][2];
+		im.MBR.setValueMBR(tempMBR);
+		//System.out.println("MBR = " + im.MBR.getValueMBR());
+		
 		//i-increment si PC
 		im.incrementPC();
 

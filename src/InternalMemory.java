@@ -18,14 +18,14 @@ public class InternalMemory{
 	public InternalMemory(String[][] instruction){
 
 		initRegisters();				//to initialize the registers
-		viewRegisters();				//to view or show the registers
+		//viewRegisters();				//to view or show the registers
 
 		//get the total number of instructions to be executed
 		noOfInstruction = instruction.length;
 		this.instruction = instruction;
-		System.out.println(instruction[0][0]);
+		/*System.out.println(instruction[0][0]);
 		System.out.println(instruction[0][1]);
-		System.out.println(instruction[0][2]);
+		System.out.println(instruction[0][2]);*/
 
 		//print all element in the inst 2Darray
 		/*for(int i=0; i < noOfInstruction; i++){
@@ -75,9 +75,9 @@ public class InternalMemory{
 	public static void viewRegisters(){
 		//print all element in the intructions arraylist
 		System.out.println("\n");
-		// for(int i=0; i < registers.size(); i++){
-		// 	System.out.println(registers.get(i));
-		// }
+		/*for(int i=0; i < registers.size(); i++){
+			System.out.println(registers.get(i));
+		}*/
 		for(String key: registers.keySet()){
 			System.out.println(registers.get(key).toString());
 		}
@@ -86,6 +86,10 @@ public class InternalMemory{
 	public void incrementPC(){
 		pc++;
 		PC.setValue(pc);
+	}
+
+	public String[][] getInstructions(){
+		return this.instruction;
 	}
 
 }

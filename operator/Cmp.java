@@ -1,11 +1,11 @@
 package operator;
 
-public class Div extends Operator{
+public class Cmp extends Operator{
 
 	public String src1;
 	public String src2;
 
-	public Div (String name, int clockCycle, String src1, String src2){
+	public Cmp (String name, int clockCycle, String src1, String src2){
 		super(name, clockCycle);
 		this.src1 = src1;
 		this.src2 = src2;
@@ -31,9 +31,9 @@ public class Div extends Operator{
 		//verify if dst is a register
 			/*if dst is not a register, stop this operation.
 			else, proceed*/
-		/*src1 = src1 / src2;*/
-	
+		/*if src1 = src2, => 0;
+		else if src1 < src2, => -1
+		else src1 > src2, => 1*/
 		//keep track of negative value
-		//keep track of indeterminate values
 	}
 }

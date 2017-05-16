@@ -9,6 +9,9 @@ public class Register{
 	private Operator operator;
 	private boolean isBusy = false;
 
+	//special case for MBR whose value would be string
+	private String valueMBR;
+
 	public Register (String name){
 		this.name = name;
 	} 
@@ -21,6 +24,10 @@ public class Register{
 
 	public void setValue(int value){
 		this.value = value;
+	}
+	//special case: MBR contains string value since it contains the value of the instruction itself
+	public void setValueMBR(String valueMBR){
+		this.valueMBR = valueMBR;
 	}
 
 	public void setOperator(Operator operator){
@@ -39,6 +46,11 @@ public class Register{
 
 	public int getValue(){
 		return value;
+	}
+
+	//special case: MBR contains string value since it contains the value of the instruction itself
+	public String getValueMBR(){
+		return valueMBR;
 	}
 
 	public Operator getOperator(){
