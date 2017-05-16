@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.io.*;
 
 public class MainFrame {
 
@@ -39,24 +40,39 @@ public class MainFrame {
             menuBar.add(menu);
             
             //a group of JMenuItems
-            menuItem = new JMenuItem("Open file", KeyEvent.VK_T);
+            menuItem = new JMenuItem("Load project", KeyEvent.VK_T);
             //menuItem.setMnemonic(KeyEvent.VK_T); //used constructor instead
             menuItem.setAccelerator(KeyStroke.getKeyStroke( KeyEvent.VK_1, ActionEvent.ALT_MASK));
-            menuItem.getAccessibleContext().setAccessibleDescription("Open files from a directory");
+            menuItem.getAccessibleContext().setAccessibleDescription("Open project from a directory");
             menu.add(menuItem);
-            
+
+            menuItem.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    FileDialog dialog = new FileDialog((Frame)null, "Select File to Open");
+                    dialog.setMode(FileDialog.LOAD);
+                    dialog.setVisible(true);
+                    String file = dialog.getFile();
+                }
+            });
+
+            menuItem = new JMenuItem("Close project", KeyEvent.VK_T);
+            menuItem.getAccessibleContext().setAccessibleDescription("Close project");
+            menu.add(menuItem);            
+
             //a submenu
             menu.addSeparator();
-            submenu = new JMenu("Submenu");
-            submenu.setMnemonic(KeyEvent.VK_S);
+            menuItem = new JMenuItem("Open File", KeyEvent.VK_T);
+            menuItem.getAccessibleContext().setAccessibleDescription("Open a file from the project");
+            menu.add(menuItem);
 
-            menuItem = new JMenuItem("Item1");
-            menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.ALT_MASK));
-            submenu.add(menuItem);
+            menuItem = new JMenuItem("Close File", KeyEvent.VK_T);
+            menuItem.getAccessibleContext().setAccessibleDescription("Close the file");
+            menu.add(menuItem);
 
-            menuItem = new JMenuItem("Item2");
-            submenu.add(menuItem);
-            menu.add(submenu);
+            menu.addSeparator();
+            menuItem = new JMenuItem("Exit", KeyEvent.VK_T);
+            menuItem.getAccessibleContext().setAccessibleDescription("Exit the program");
+            menu.add(menuItem);
 
             //Build second menu in the menu bar.
             menu = new JMenu("View");
@@ -69,6 +85,10 @@ public class MainFrame {
             menu.setMnemonic(KeyEvent.VK_N);
             menu.getAccessibleContext().setAccessibleDescription("Project");
             menuBar.add(menu);
+
+            menuItem = new JMenuItem("Build Project", KeyEvent.VK_T);
+            menuItem.getAccessibleContext().setAccessibleDescription("Build the project");
+            menu.add(menuItem);
             
             //Build second menu in the menu bar.
             menu = new JMenu("Tools");
@@ -81,6 +101,10 @@ public class MainFrame {
             menu.setMnemonic(KeyEvent.VK_N);
             menu.getAccessibleContext().setAccessibleDescription("Help");
             menuBar.add(menu);
+
+            menuItem = new JMenuItem("About", KeyEvent.VK_T);
+            menuItem.getAccessibleContext().setAccessibleDescription("About the program");
+            menu.add(menuItem);
 
         header.add(menuBar, BorderLayout.PAGE_START);
 
@@ -110,6 +134,7 @@ public class MainFrame {
         //The following line enables to use scrolling tabs.
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         pane.add(parameters, BorderLayout.LINE_START);
+        tabbedPane.setPreferredSize(new Dimension(185, 60));
 
         //Lay out the window
         JToolBar toolBar = new JToolBar("Still draggable");
