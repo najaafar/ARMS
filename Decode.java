@@ -5,9 +5,9 @@ import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Decode implements Runnable{
+public class Decode/* implements Runnable*/{
 
-	public Thread tDecode;
+	//public Thread tDecode;
 	private String name = "DECODE";
 	//public String[][] instruction;
 	public static String line; 
@@ -16,8 +16,8 @@ public class Decode implements Runnable{
 	public static String op1, op2;
 
 	public Decode(String line){
-		createThreadInstance();
-		this.tDecode.start();
+		/*createThreadInstance();
+		this.tDecode.start();*/
 		this.line = line;
 
 		//this.instruction = Main.im.getInstructions();
@@ -29,32 +29,37 @@ public class Decode implements Runnable{
 			System.out.println("\n");
 		}*/
 
-	} 
-
-	public void createThreadInstance(){
-		this.tDecode = new Thread(this);
-	}
-
-	public void run(){
 		//parsing ng instruction - nagawa na sa Main
 		parseInstruction();
 
 		//hazard detection!!!
 		System.out.println("Decode finished!");
+		Main.addProcessesPerClockCycle(getProcessName());
+		Main.showProcessesPerClockCycle();
+		Main.clearProcessesPerClockCycle();
 		Main.cycle++;
 		System.out.println("Clock cycle at " + Main.cycle);
 
 		Execute execute = new Execute(operator, op1, op2);
-		execute.run();
+		//execute.run();
+
+	} 
+
+	/*public void createThreadInstance(){
+		this.tDecode = new Thread(this);
+	}
+
+	public void run(){
+
 	}
 
 	public Thread getThread(){
 		return this.tDecode;
-	}
+	}*/
 
 	//getter
 	public String getProcessName(){
-		return this.line;
+		return this.name;
 
 	}
 

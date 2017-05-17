@@ -3,15 +3,15 @@ import src.InternalMemory;
 import java.util.*;
 import java.io.*;
 
-public class Fetch implements Runnable{
+public class Fetch/* implements Runnable*/{
 
-	public Thread tFetch;
+	//public Thread tFetch;
 	private String name = "FETCH";
 	public String[][] instruction;
 
 	public Fetch(){
-		createThreadInstance();
-		this.tFetch.start();
+		/*createThreadInstance();
+		this.tFetch.start();*/
 
 		
 		this.instruction = Main.im.getInstructions();
@@ -24,13 +24,8 @@ public class Fetch implements Runnable{
 		}*/
 
 		System.out.println("Main Memory = " + Main.im);
-	} 
 
-	public void createThreadInstance(){
-		this.tFetch = new Thread(this);
-	}
 
-	public void run(){
 		//kay pc nakalagay yung index ng current instruction
 		//ilagay ang laman ni pc kay MAR
 		Main.im.MAR.setValue(Main.im.PC.getValue());
@@ -45,17 +40,28 @@ public class Fetch implements Runnable{
 		Main.im.incrementPC();
 
 		System.out.println("Fetch finished!");
+		Main.addProcessesPerClockCycle(getProcessName());
+		Main.showProcessesPerClockCycle();
+		Main.clearProcessesPerClockCycle();
 		Main.cycle++;
 		System.out.println("Clock cycle at " + Main.cycle);
 		//Gawa ka ng Decode tas ipasa mo yung mga registers
 		
 		Decode decode = new Decode(Main.im.MBR.getValueMBR());
-		decode.run();
+		//decode.run();
+	} 
+
+	/*public void createThreadInstance(){
+		this.tFetch = new Thread(this);
+	}
+
+	public void run(){
+
 	}
 
 	public Thread getThread(){
 		return this.tFetch;
-	}
+	}*/
 
 	public void doProcess(){
 
