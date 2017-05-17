@@ -91,7 +91,10 @@ class Main implements Runnable{
 		System.out.println("Clock running...");
 
 		//initialize threads for fetch, decode, execute, memory, writeback
-		Fetch fetch = new Fetch();
+		for(int i=0; i < noOfInstruction; i++){
+			Fetch fetch = new Fetch();
+		}
+		
 		//Decode decode = new Decode();
 		//Execute execute = new Execute();
 		//Memory memory = new Memory();

@@ -1,5 +1,6 @@
 
 import src.InternalMemory;
+import src.Register;
 import java.util.*;
 import java.io.*;
 
@@ -7,10 +8,14 @@ public class Memory implements Runnable{
 
 	public Thread tMemory;
 	private String name = "MEMORY";
+	public static int result;
+	public static Register reg;
 
-	public Memory(){
+	public Memory(int result, Register reg){
 		createThreadInstance();
 		this.tMemory.start();
+		this.result = result;
+		this.reg = reg;
 	} 
 
 	public void createThreadInstance(){
@@ -21,6 +26,9 @@ public class Memory implements Runnable{
 		System.out.println("Memory finished!");
 		Main.cycle++;
 		System.out.println("Clock cycle at " + Main.cycle);
+
+		Writeback writeback = new Writeback(result, reg);
+		writeback.run();
 	}
 
 	public Thread getThread(){
