@@ -4,9 +4,9 @@ import src.Register;
 import java.util.*;
 import java.io.*;
 
-public class Execute implements Runnable{
+public class Execute/* implements Runnable*/{
 
-	public Thread tExecute;
+	//public Thread tExecute;
 	private String name = "EXECUTE";
 	public String[][] instruction;
 	public static String operator;
@@ -15,8 +15,8 @@ public class Execute implements Runnable{
 	public static Register reg;
 
 	public Execute(String operator, String op1, String op2){
-		createThreadInstance();
-		this.tExecute.start();
+		/*createThreadInstance();
+		this.tExecute.start();*/
 		this.operator = operator;
 		this.op1 = op1;
 		this.op2 = op2;
@@ -31,13 +31,8 @@ public class Execute implements Runnable{
 			}
 			System.out.println("\n");
 		}*/
-	} 
 
-	public void createThreadInstance(){
-		this.tExecute = new Thread(this);
-	}
 
-	public void run(){
 
 		//String[] instruction = Main.im.getInstructions()[Main.im.MAR.getValue()];
 		//kunin yung name ng operator
@@ -109,16 +104,26 @@ public class Execute implements Runnable{
 
 		//tas ipapasa yung result sa writeback siguro
 		System.out.println("Execute finished!");
+		Main.addProcessesPerClockCycle(getProcessName());
+		Main.showProcessesPerClockCycle();
+		Main.clearProcessesPerClockCycle();
 		Main.cycle++;
 		System.out.println("Clock cycle at " + Main.cycle);
 
 		Memory memory = new Memory(result, reg);
-		memory.run();
+		//memory.run();
+	} 
+
+	/*public void createThreadInstance(){
+		this.tExecute = new Thread(this);
+	}
+
+	public void run(){
 	}
 
 	public Thread getThread(){
 		return this.tExecute;
-	}
+	}*/
 
 	//getter
 	public String getProcessName(){

@@ -9,7 +9,8 @@ import java.util.regex.Pattern;
 class Main implements Runnable{
 
 	public static int noOfInstruction = 0;
-	public static ArrayList<Thread> processes = new ArrayList<Thread>(); 
+	public static ArrayList<String> processes = new ArrayList<String>(); 
+	public static HashMap<String, ArrayList> registers = new HashMap<String, ArrayList>();
 	public static ArrayList<String> inputData;
 	public static ArrayList<String[]> instructions;
 	public static InternalMemory im;
@@ -91,16 +92,20 @@ class Main implements Runnable{
 		System.out.println("Clock running...");
 
 		//initialize threads for fetch, decode, execute, memory, writeback
+		for(int i=0; i < noOfInstruction; i++){
+			Thread t = new Thread();
+			t.start();
+		}
 		// for(int i=0; i < noOfInstruction; i++){
-		Fetch fetch = new Fetch();
+		//Fetch fetch = new Fetch();
 		// }
+
 		
 		//Decode decode = new Decode();
 		//Execute execute = new Execute();
 		//Memory memory = new Memory();
 		//Writeback writeback = new Writeback();
 
-		showProcessesPerClockCycle();
 
 	}
 
@@ -109,10 +114,11 @@ class Main implements Runnable{
 		for(int i=0; i < noOfInstruction; i++){
 			//System.out.println("Thread : " + i);
 			try{
-				startExecution(instructions.get(i));
-				Thread.sleep(50);
-			}catch(InterruptedException ie){
-				System.out.println("Operation interrupted! " + ie);
+				//startExecution(instructions.get(i));
+				//Thread.sleep(50);
+				Fetch fetch = new Fetch();
+			}catch(NullPointerException npe){
+				System.out.println("Operation interrupted! " + npe);
 			}
 		}
 
@@ -126,6 +132,14 @@ class Main implements Runnable{
 		for(int i=0; i < processes.size(); i++){
 			System.out.println(processes.get(i));
 		}
+	}
+
+	public static void addProcessesPerClockCycle(String process){
+		processes.add(process);
+	}
+
+	public static void clearProcessesPerClockCycle(){
+		processes.clear();
 	}
 
 	public void startExecution(String[] line){
