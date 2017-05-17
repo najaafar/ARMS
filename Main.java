@@ -96,6 +96,10 @@ class Main implements Runnable{
 			Thread t = new Thread();
 			t.start();
 		}
+		// for(int i=0; i < noOfInstruction; i++){
+		//Fetch fetch = new Fetch();
+		// }
+
 		
 		//Decode decode = new Decode();
 		//Execute execute = new Execute();
