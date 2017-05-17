@@ -15,6 +15,8 @@ public class Writeback/* implements Runnable*/{
 		/*createThreadInstance();
 		this.tWriteback.start();*/
 		//officially write the value of the result to the register
+		this.reg = reg;
+
 		if(reg != null){
 			Main.im.registers.get(this.reg.getName()).setValue(result);
 		}
