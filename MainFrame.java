@@ -2,6 +2,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
+import java.util.Scanner;
+import java.lang.*;
 
 public class MainFrame {
 
@@ -52,6 +54,15 @@ public class MainFrame {
                     dialog.setMode(FileDialog.LOAD);
                     dialog.setVisible(true);
                     String file = dialog.getFile();
+
+                    if(file.endsWith("txt")) {
+                        Main.main(null);
+                    }
+
+                    else {
+                        System.out.println("Invalid file.");
+                    }
+                    
                 }
             });
 
@@ -73,6 +84,12 @@ public class MainFrame {
             menuItem = new JMenuItem("Exit", KeyEvent.VK_T);
             menuItem.getAccessibleContext().setAccessibleDescription("Exit the program");
             menu.add(menuItem);
+
+            menuItem.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    System.exit(0);
+                }
+            });
 
             //Build second menu in the menu bar.
             menu = new JMenu("View");
