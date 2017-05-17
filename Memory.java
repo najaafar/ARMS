@@ -21,11 +21,12 @@ public class Memory/* implements Runnable*/{
 		System.out.println("Memory finished!");
 		Main.addProcessesPerClockCycle(getProcessName());
 		Main.showProcessesPerClockCycle();
+		Main.im.viewRegisters();
 		Main.clearProcessesPerClockCycle();
 		Main.cycle++;
 		System.out.println("Clock cycle at " + Main.cycle);
 
-		Writeback writeback = new Writeback(result, reg);
+		//Writeback writeback = new Writeback(result, reg);
 		//writeback.run();
 	} 
 

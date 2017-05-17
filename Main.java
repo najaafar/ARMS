@@ -92,10 +92,16 @@ class Main implements Runnable{
 		System.out.println("Clock running...");
 
 		//initialize threads for fetch, decode, execute, memory, writeback
+
 		for(int i=0; i < noOfInstruction; i++){
 			Thread t = new Thread();
 			t.start();
 		}
+
+		// for(int i=0; i < noOfInstruction; i++){
+		//Fetch fetch = new Fetch();
+		// }
+
 		// for(int i=0; i < noOfInstruction; i++){
 		//Fetch fetch = new Fetch();
 		// }
@@ -117,6 +123,10 @@ class Main implements Runnable{
 				//startExecution(instructions.get(i));
 				//Thread.sleep(50);
 				Fetch fetch = new Fetch();
+				Decode decode = new Decode(Main.im.MBR.getValueMBR());
+				Execute execute = new Execute(Decode.operator, Decode.op1, Decode.op2);
+				Memory memory = new Memory(Execute.result, Execute.reg);
+				Writeback writeback = new Writeback(Memory.result, Memory.reg);
 			}catch(NullPointerException npe){
 				System.out.println("Operation interrupted! " + npe);
 			}

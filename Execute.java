@@ -106,11 +106,12 @@ public class Execute/* implements Runnable*/{
 		System.out.println("Execute finished!");
 		Main.addProcessesPerClockCycle(getProcessName());
 		Main.showProcessesPerClockCycle();
+		Main.im.viewRegisters();
 		Main.clearProcessesPerClockCycle();
 		Main.cycle++;
 		System.out.println("Clock cycle at " + Main.cycle);
 
-		Memory memory = new Memory(result, reg);
+		//Memory memory = new Memory(result, reg);
 		//memory.run();
 	} 
 

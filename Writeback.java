@@ -24,6 +24,7 @@ public class Writeback/* implements Runnable*/{
 		System.out.println("Writeback finished!");
 		Main.addProcessesPerClockCycle(getProcessName());
 		Main.showProcessesPerClockCycle();
+		Main.im.viewRegisters();
 		Main.clearProcessesPerClockCycle();
 		Main.cycle++;
 		System.out.println("Clock cycle at " + Main.cycle);

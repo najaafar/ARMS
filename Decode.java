@@ -36,11 +36,12 @@ public class Decode/* implements Runnable*/{
 		System.out.println("Decode finished!");
 		Main.addProcessesPerClockCycle(getProcessName());
 		Main.showProcessesPerClockCycle();
+		Main.im.viewRegisters();
 		Main.clearProcessesPerClockCycle();
 		Main.cycle++;
 		System.out.println("Clock cycle at " + Main.cycle);
 
-		Execute execute = new Execute(operator, op1, op2);
+		//Execute execute = new Execute(operator, op1, op2);
 		//execute.run();
 
 	} 

@@ -42,12 +42,13 @@ public class Fetch/* implements Runnable*/{
 		System.out.println("Fetch finished!");
 		Main.addProcessesPerClockCycle(getProcessName());
 		Main.showProcessesPerClockCycle();
+		Main.im.viewRegisters();
 		Main.clearProcessesPerClockCycle();
 		Main.cycle++;
 		System.out.println("Clock cycle at " + Main.cycle);
 		//Gawa ka ng Decode tas ipasa mo yung mga registers
 		
-		Decode decode = new Decode(Main.im.MBR.getValueMBR());
+		//Decode decode = new Decode(Main.im.MBR.getValueMBR());
 		//decode.run();
 	} 
 

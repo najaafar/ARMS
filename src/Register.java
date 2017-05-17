@@ -62,6 +62,8 @@ public class Register{
 	}
 
 	public String toString(){
-		return getName() + " " + getValue() + " " + getOperator() + " " + getStatus();
+		if(this.name.equals("MBR") == true)
+			return getName() + " " + getValueMBR()/* + " " + getOperator() + " " + getStatus()*/;
+		else return getName() + " " + getValue()/* + " " + getOperator() + " " + getStatus()*/;
 	}
 }
