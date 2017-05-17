@@ -1,4 +1,9 @@
-
+/*
+	Main.java
+	- main class for the backend of the project. The input file is read then parsed and added
+	to the instructions ArrayList. The internal memory (registers), clock, and threads are 
+	initialized before starting the threads.
+*/
 import src.InternalMemory;
 
 import java.util.*;

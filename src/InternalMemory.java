@@ -1,3 +1,8 @@
+/*
+	InternalMemory.java
+	- a class that imitates the internal memory of a machine. It contains all of the registers
+	and the instructions.
+*/
 package src;
 
 

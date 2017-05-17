@@ -1,3 +1,7 @@
+/*
+	Cmp.java
+	- a class that executes the Cmp operation
+*/
 package operator;
 
 public class Cmp extends Operator{

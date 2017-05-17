@@ -1,3 +1,7 @@
+/*
+	Add.java
+	- a class that executes the Add operation
+*/
 package operator;
 
 public class Add extends Operator{

@@ -1,4 +1,8 @@
-
+/*
+	Decode.java
+	- a class that executes the Decode stage by parsing the instruction at the address stored at MAR.
+	- consumes one clock cycle
+*/
 import src.InternalMemory;
 import java.util.*;
 import java.io.*;

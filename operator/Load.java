@@ -1,3 +1,7 @@
+/*
+	Load.java
+	- a class that executes the Load operation
+*/
 package operator;
 
 public class Load extends Operator{

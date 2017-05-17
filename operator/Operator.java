@@ -1,3 +1,7 @@
+/*
+	Operator.java
+	- a class for the operator
+*/
 package operator;
 
 public abstract class Operator{

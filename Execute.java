@@ -1,4 +1,9 @@
-
+/*
+	Execute.java
+	- a class that executes the Execute stage by executing the instruction parsed by the decoder.
+	The result is used at the later stage.
+	- consumes one clock cycle
+*/
 import src.InternalMemory;
 import src.Register;
 import java.util.*;

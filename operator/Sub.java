@@ -1,3 +1,7 @@
+/*
+	Sub.java
+	- a class that executes the Sub operation
+*/
 package operator;
 
 public class Sub extends Operator{

@@ -1,4 +1,8 @@
-
+/*
+	Memory.java
+	- a class for the Memory Access stage of the 5-stage pipeline.
+	- consumes one clock cycle
+*/
 import src.InternalMemory;
 import src.Register;
 import java.util.*;

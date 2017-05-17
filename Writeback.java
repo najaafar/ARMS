@@ -1,4 +1,9 @@
-
+/*
+	Writeback.java
+	- a class that executes the Writeback stage by storing the result of the Execute stage to
+	the destination register.
+	- consumes one clock cycle
+*/
 import src.InternalMemory;
 import src.Register;
 import java.util.*;

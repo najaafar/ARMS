@@ -1,3 +1,7 @@
+/*
+	MainFrame.java
+	- main class for the GUI. A simple GUI that runs the program in the terminal.
+*/
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;

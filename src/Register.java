@@ -1,3 +1,7 @@
+/*
+	Register.java
+	- a class for each register. A register has a name, value, oerator, and an isBusy flag.
+*/
 package src;
 
 import operator.*;

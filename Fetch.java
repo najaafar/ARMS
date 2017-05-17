@@ -1,4 +1,9 @@
-
+/*
+	Fetch.java
+	- a class that executes the Fetch stage by storing the value of the register PC to the
+	register MAR, then incrementing the PC.
+	- consumes one clock cycle
+*/
 import src.InternalMemory;
 import java.util.*;
 import java.io.*;
